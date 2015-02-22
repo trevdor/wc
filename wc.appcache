@@ -1,0 +1,12 @@
+CACHE MANIFEST
+# 2013-01-11 v0.9
+/jquery/images/icons-png/carat-l-white.png
+/jquery/images/icons-png/carat-r-white.png
+/js/jquery.js
+/js/jquery.mobile-1.4.0.min.js
+
+NETWORK:
+/index.php
+
+FALLBACK:
+/ /offline.html

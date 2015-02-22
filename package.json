@@ -1,0 +1,35 @@
+{
+  "name": "wc",
+  "version": "1.0.0",
+  "description": "Wellness Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nematode/wc.git"
+  },
+  "keywords": [
+    "wellness",
+    "challenge"
+  ],
+  "author": "Trevor Farlow <npm@trevdiggy.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nematode/wc/issues"
+  },
+  "homepage": "https://github.com/nematode/wc",
+  "dependencies": {
+    "good": "^5.1.1",
+    "good-console": "^4.1.0",
+    "hapi": "^8.1.0",
+    "react": "^0.13.0-beta.1"
+  },
+  "devDependencies": {
+    "babel": "^4.4.5",
+    "react-tools": "^0.12.2",
+    "webpack": "^1.5.3",
+    "webpack-dev-server": "^1.7.0"
+  }
+}

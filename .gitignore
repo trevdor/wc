@@ -1,0 +1,4 @@
+*.DS_Store
+*.htaccess
+node_modules/
+conf/settings.json
