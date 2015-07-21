@@ -4,7 +4,7 @@ import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // import LoginHandler from './components/Login';
-import MyAwesomeReactComponent from './components/MyAwesomeReactComponent.js';
+import Checklist from './components/Checklist';
 
 //Needed for onTouchTap
 //Can go away when react 1.0 release of material-ui
@@ -24,7 +24,7 @@ let App = React.createClass({
   render() {
     return (
       <div>
-        <MyAwesomeReactComponent />
+        <Checklist />
 
         <RouteHandler/>
       </div>
