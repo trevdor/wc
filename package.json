@@ -1,10 +1,11 @@
 {
   "name": "wc",
-  "version": "1.0.0",
+  "version": "0.3.14",
   "description": "Wellness Challenge",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "test"
+    "start": "webpack-dev-server --hot --inline --progress --colors",
+    "build": "webpack --progress --colors"
   },
   "repository": {
     "type": "git",
@@ -12,7 +13,8 @@
   },
   "keywords": [
     "wellness",
-    "challenge"
+    "challenge",
+    "social"
   ],
   "author": "Trevor Farlow <npm@trevdiggy.com>",
   "license": "ISC",
@@ -21,15 +23,24 @@
   },
   "homepage": "https://github.com/nematode/wc",
   "dependencies": {
-    "good": "^5.1.1",
-    "good-console": "^4.1.0",
-    "hapi": "^8.1.0",
-    "react": "^0.13.0-beta.1"
+    "react": "^0.13.3",
+    "material-ui": "^0.10.1",
+    "react-tap-event-plugin": "^0.1.7"
   },
   "devDependencies": {
-    "babel": "^4.4.5",
-    "react-tools": "^0.12.2",
-    "webpack": "^1.5.3",
-    "webpack-dev-server": "^1.7.0"
+    "babel-core": "^5.8.3",
+    "babel-loader": "^5.3.2",
+    "chai": "^3.2.0",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.2",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-cli": "^0.1.0",
+    "karma-jasmine": "^0.3.6",
+    "karma-mocha": "^0.2.0",
+    "mocha": "^2.2.5",
+    "react-hot-loader": "^1.2.8",
+    "react-router": "^0.13.3",
+    "webpack": "^1.10.0",
+    "webpack-dev-server": "^1.10.0"
   }
 }
