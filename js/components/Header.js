@@ -1,9 +1,16 @@
-require('react');
+import React from 'react';
+import mui from 'material-ui';
+const AppBar = mui.AppBar;
 
-class Header extends React.Component {
-  render() {
-    return <div>Hello {this.props.date}</div>;
+const Header = React.createClass({
+
+  render: function() {
+    return (
+      <AppBar
+        title="Title"
+        iconClassNameRight="muidocs-icon-navigation-expand-more" />
+    );
   }
-}
+});
 
-React.render(<Header date="2/22/14" />);
+module.exports = Header;

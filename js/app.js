@@ -1,39 +1,67 @@
 import React from 'react';
 import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
-// import LoginHandler from './components/Login';
+import mui from 'material-ui';
+const { Tabs, Tab } = mui;
+
 import Checklist from './components/Checklist';
+import RulesList from './components/RulesList';
+import Scoreboard from './components/Scoreboard';
 
-//Needed for onTouchTap
-//Can go away when react 1.0 release of material-ui
-//Check this repo:
-//https://github.com/zilverline/react-tap-event-plugin
-injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin(); //Can go away when react 1.0 release of material-ui
+
+const ThemeManager = new mui.Styles.ThemeManager();
 
 // <div className="nav">
 //   <Link to="app">Home</Link>
 //   <Link to="login">Login</Link>
-//
-//   {/* this is the important part */}
-//   <RouteHandler/>
 // </div>
 
-let App = React.createClass({
+const App = React.createClass({
+
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
+
+  _onActive(tab){
+    this.context.router.transitionTo(tab.props.route);
+  },
+
   render() {
     return (
       <div>
-        <Checklist />
+        <Tabs>
+          <Tab label="Score" route="scoreboard" onActive="this._onActive">
+            {/* <Scoreboard /> */}
+          </Tab>
+          <Tab label="Log" route="checklist" onActive="this._onActive">
+            <Checklist />
+          </Tab>
+          <Tab label="Rules" route="rules" onActive="this._onActive">
+            {/* <RulesList /> */}
+          </Tab>
+        </Tabs>
 
         <RouteHandler/>
-      </div>
+    </div>
     );
   }
 });
 
-let routes = (
-  <Route name="app" path="/" handler={App}></Route>
+const routes = (
+  <Route name="app" path="/" handler={App}>
+    <Route name="scoreboard" handler={Scoreboard} />
+    <Route name="checklist" handler={Checklist} />
+    <Route name="rules" handler={RulesList} />
+  </Route>
 );
 
 Router.run(routes, function (Handler) {

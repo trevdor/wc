@@ -1,7 +1,8 @@
 import React from 'react';
 import mui from 'material-ui';
+const Checkbox = mui.Checkbox;
+const FlatButton = mui.FlatButton;
 const ThemeManager = new mui.Styles.ThemeManager();
-const Checkbox  = mui.Checkbox;
 
 const Checklist = React.createClass({
 
