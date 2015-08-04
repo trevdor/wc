@@ -31,7 +31,8 @@ const App = React.createClass({
     };
   },
 
-  _onActive(tab){
+  /* Default material-ui handler for Tabs */
+  _onActive(tab) {
     this.context.router.transitionTo(tab.props.route);
   },
 
@@ -39,13 +40,13 @@ const App = React.createClass({
     return (
       <div>
         <Tabs>
-          <Tab label="Score" route="scoreboard" onActive="this._onActive">
+          <Tab label="Score" route="scoreboard">
             {/* <Scoreboard /> */}
           </Tab>
-          <Tab label="Log" route="checklist" onActive="this._onActive">
+          <Tab label="Log" route="checklist">
             <Checklist />
           </Tab>
-          <Tab label="Rules" route="rules" onActive="this._onActive">
+          <Tab label="Rules" route="rules">
             {/* <RulesList /> */}
           </Tab>
         </Tabs>
