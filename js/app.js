@@ -4,32 +4,28 @@ import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
 import mui from 'material-ui';
 const { Tabs, Tab } = mui;
+const Colors = mui.Styles.Colors;
 
 import Checklist from './components/Checklist';
 import RulesList from './components/RulesList';
 import Scoreboard from './components/Scoreboard';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin(); //Can go away when react 1.0 release of material-ui
+injectTapEventPlugin(); //Can go away with 1.0 release of plugin
 
 const ThemeManager = new mui.Styles.ThemeManager();
 
-const App = React.createClass({
-
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
+class App extends React.Component {
   getChildContext() {
     return {
       muiTheme: ThemeManager.getCurrentTheme()
     };
-  },
+  }
 
   /* Default material-ui handler for Tabs */
   _onActive(tab) {
     this.context.router.transitionTo(tab.props.route);
-  },
+  }
 
   render() {
     return (
@@ -50,7 +46,11 @@ const App = React.createClass({
     </div>
     );
   }
-});
+}
+
+App.childContextTypes = {
+  muiTheme: React.PropTypes.object
+};
 
 const routes = (
   <Route name="app" path="/" handler={App}>
@@ -63,3 +63,5 @@ const routes = (
 Router.run(routes, function (Handler) {
   React.render(<Handler/>, document.body);
 });
+
+export default App;

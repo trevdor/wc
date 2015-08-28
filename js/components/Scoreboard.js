@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Scoreboard = React.createClass({
-  render: function() {
+class Scoreboard extends React.Component {
+  render() {
     return <div>scoreboard</div>;
   }
-});
+}
 
-module.exports = Scoreboard;
+export default Scoreboard;

@@ -1,10 +1,10 @@
 import React from 'react';
+import mui from 'material-ui';
 
-const RulesList = React.createClass({
-
-  render: function() {
+class RulesList extends React.Component {
+  render() {
     return <div>rules rules rules</div>;
   }
-});
+}
 
-module.exports = RulesList;
+export default RulesList;

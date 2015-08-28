@@ -1,10 +1,9 @@
 import React from 'react';
 import mui from 'material-ui';
-const Checkbox = mui.Checkbox;
-const FlatButton = mui.FlatButton;
+const { Checkbox, FlatButton } = mui;
 
-const Checklist = React.createClass({
-  render: function() {
+class Checklist extends React.Component {
+  render() {
     return (
       <div>
         <Checkbox
@@ -26,7 +25,6 @@ const Checklist = React.createClass({
       </div>
     );
   }
+}
 
-});
-
-module.exports = Checklist;
+export default Checklist;
