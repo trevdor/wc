@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
@@ -13,11 +13,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin(); //Can go away when react 1.0 release of material-ui
 
 const ThemeManager = new mui.Styles.ThemeManager();
-
-// <div className="nav">
-//   <Link to="app">Home</Link>
-//   <Link to="login">Login</Link>
-// </div>
 
 const App = React.createClass({
 
@@ -41,13 +36,13 @@ const App = React.createClass({
       <div>
         <Tabs>
           <Tab label="Score" route="scoreboard">
-            {/* <Scoreboard /> */}
+            <Scoreboard />
           </Tab>
           <Tab label="Log" route="checklist">
             <Checklist />
           </Tab>
           <Tab label="Rules" route="rules">
-            {/* <RulesList /> */}
+            <RulesList />
           </Tab>
         </Tabs>
 

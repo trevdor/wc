@@ -2,20 +2,8 @@ import React from 'react';
 import mui from 'material-ui';
 const Checkbox = mui.Checkbox;
 const FlatButton = mui.FlatButton;
-const ThemeManager = new mui.Styles.ThemeManager();
 
 const Checklist = React.createClass({
-
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
-  getChildContext: function() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
-
   render: function() {
     return (
       <div>
