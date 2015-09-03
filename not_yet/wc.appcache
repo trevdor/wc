@@ -1,0 +1,9 @@
+CACHE MANIFEST
+# 2015-01-11 v0.9
+/dist/bundle.js
+
+NETWORK:
+/index.html
+
+FALLBACK:
+/offline.html

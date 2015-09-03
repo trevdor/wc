@@ -1,0 +1,12 @@
+import React from 'react';
+import WCApp from './components/WcApp';
+import Application from './application';
+
+var app = new Application();
+var { ApplicationContainer }  = require('marty');
+
+React.render((
+    <ApplicationContainer app={app}>
+        <WcApp />
+    </ApplicationContainer>
+), document.getElementById('wc_app'));
