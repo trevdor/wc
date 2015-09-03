@@ -1,13 +1,14 @@
 import Marty from 'marty';
+import Immutable from 'immutable';
 import { ViewActions, ServerActions } from '../utils/WcConstants';
 
 export default class LogStore extends Marty.Store {
   constructor(options) {
     super(options);
-    this.state = { logEntries: {} };
+    this.state = { logEntries: new Immutable.Map() };
     this.handlers = {
-      _logActivity: ViewActions.LOG_ACTIVITY,
-      _revertLogActivity: ServerActions.LOG_ACTIVITY_SAVED_FAILED
+      _logActivity: ViewActions.LOG_GOAL,
+      _revertLogActivity: ServerActions.LOG_GOAL_SAVED_FAILED
     };
   }
 
@@ -26,8 +27,9 @@ export default class LogStore extends Marty.Store {
   }
 
   _logActivity(date, activity, done) {
-    this.logEntries[date][activity] = done;
-    console.log(logEntries);
+    this.setState({
+      logEntries: this.state.logEntries.setIn([date, activity], done)
+    });
   }
 
   _revertLogActivity(date, activity, done) {
