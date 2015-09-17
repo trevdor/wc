@@ -2,7 +2,7 @@ var path = require("path");
 
 module.exports = function(config) {
   config.set({
-    browsers: ['Chrome'],
+    [ process.env.CONTINUOUS_INTEGRATION ? 'Firefox' : 'Chrome' ],
     files: [
       'test/**/*.spec.js'
     ],
