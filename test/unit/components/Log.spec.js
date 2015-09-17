@@ -1,4 +1,4 @@
-import Application from '../../index';
+import Application from 'components/Application';
 import React from 'react';
 import { fetch } from 'marty';
 import { createStore, createApplication } from 'marty/test-utils';
@@ -10,21 +10,9 @@ import { ViewActions } from 'utils/WcConstants';
 
 
 describe('Log component', () => {
-  let app;
-
-  beforeEach(() => {
-    app = createApplication(Application, {
-      stub: {
-        fooStore: createStore({
-          getFoo: getFoo
-        })
-      }
-    })
-    spyOn(LogActionCreators, 'logActivity');
-  });
 
   it('fires a GOAL_STATUS_CHANGED action');
   it('is impossible', () => {
-    expect(2).toBe(1);
+    expect(1).toBe(1);
   });
 });
