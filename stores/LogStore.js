@@ -7,8 +7,8 @@ export default class LogStore extends Marty.Store {
     super(options);
     this.state = { logEntries: new Immutable.Map() };
     this.handlers = {
-      _logActivity: ViewActions.LOG_GOAL,
-      _revertLogActivity: ServerActions.LOG_GOAL_SAVED_FAILED
+      _logActivity: ViewActions.GOAL_STATUS,
+      _revertLogActivity: ServerActions.GOAL_STATUS_SAVED_FAILED
     };
   }
 

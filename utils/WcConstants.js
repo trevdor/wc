@@ -1,9 +1,9 @@
 import Marty from 'marty';
 
 export const ViewActions = Marty.createConstants([
-  "LOG_GOAL"
+  "GOAL_STATUS_CHANGED"
 ]);
 
 export const ServerActions = Marty.createConstants([
-  "LOG_GOAL_SAVED"
+  "GOAL_STATUS_SAVED"
 ]);
