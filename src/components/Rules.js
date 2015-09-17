@@ -1,9 +1,6 @@
-import React from 'react';
+import React from 'react/addons';
 import mui from 'material-ui';
-const { Avatar, List, ListItem, SvgIcon } = mui;
-import MapsDirectionsRun from './material-ui/svg-icons/maps/directions-run';
-import MapsLocalDrink from './material-ui/svg-icons/maps/local-drink';
-import MapsLocalDining from './material-ui/svg-icons/maps/local-dining';
+const { Avatar, FontIcon, List, ListItem } = mui;
 const Colors = mui.Styles.Colors;
 
 class Rules extends React.Component {
@@ -12,7 +9,7 @@ class Rules extends React.Component {
       <List>
         <ListItem
           primaryText="Exercise"
-          leftAvatar={<Avatar icon={<MapsDirectionsRun />} backgroundColor={Colors.red300} />}
+          leftAvatar={<Avatar icon={<FontIcon className="material-icons">directions_run</FontIcon>} backgroundColor={Colors.red300} />}
           secondaryText={
             <p>
               <span style={{color: Colors.lightBlack}}>Work out 45 min a day, 4 days a week</span>
@@ -22,7 +19,7 @@ class Rules extends React.Component {
         />
         <ListItem
           primaryText="Water Intake"
-          leftAvatar={<Avatar icon={<MapsLocalDrink />} backgroundColor={Colors.blue300} />}
+          leftAvatar={<Avatar icon={<FontIcon className="material-icons">local_drink</FontIcon>} backgroundColor={Colors.blue300} />}
           secondaryText={
             <p>
               <span style={{color: Colors.lightBlack}}>Drink 64 oz. of water a day.</span>
@@ -32,7 +29,7 @@ class Rules extends React.Component {
         />
         <ListItem
           primaryText="Eat Your Veggies"
-          leftAvatar={<Avatar icon={<MapsLocalDining />} backgroundColor={Colors.green300} />}
+          leftAvatar={<Avatar icon={<FontIcon className="material-icons">local_dining</FontIcon>} backgroundColor={Colors.green300} />}
           secondaryText={
             <p>
               <span style={{color: Colors.lightBlack}}>Have 3 servings of vegetables a day.</span>

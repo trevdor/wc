@@ -3,7 +3,9 @@ var path = require("path");
 module.exports = function(config) {
   config.set({
     browsers: ['Chrome'],
-    files: [ 'test/**/*.spec.js' ],
+    files: [
+      'test/**/*.spec.js'
+    ],
     frameworks: [ 'jasmine' ],
     preprocessors: {
       'test/**/*.spec.js': [ 'webpack', 'sourcemap' ]
@@ -18,12 +20,11 @@ module.exports = function(config) {
     // },
     reportSlowerThan: 1000,
     webpack: {
-      cache: true,
       devtool: 'inline-source-map',
       module: {
         loaders: [{
-          test: /\.(js|jsx)$/,
-          loader: 'babel-loader',
+          test: /\.jsx?$/,
+          loader: 'babel-loader?optional=runtime',
           exclude: /node_modules/
         },{
           test: /\.gif/,

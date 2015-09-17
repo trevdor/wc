@@ -15,17 +15,9 @@ module.exports = {
 
   output: {
     libraryTarget: "umd",
-    path: __dirname + '/dist',
+    path: './dist',
+    publicPath: '/dist/',
     filename: 'bundle.js'
-  },
-
-  externals: {
-    "lodash",
-    "moment",
-    "Marty": "marty",
-    "material-ui",
-    "React": "react/addons",
-    "react-router"
   },
 
   module: {
@@ -54,8 +46,8 @@ module.exports = {
     ]
   },
   resolve: {
-    // modulesDirectories: [".", "node_modules"],
-    extensions: ['', '.js', '.jsx'],
+    modulesDirectories: [".", "node_modules"],
+    extensions: ['', '.js', '.jsx', '.webpack.js'],
     alias: {
       'styles': __dirname + '/src/styles',
       'components': __dirname + '/src/components/',
@@ -67,6 +59,6 @@ module.exports = {
   },
   stats: {
     colors: true,
-    reasons: true
+    reasons: false
   }
 };

@@ -1,5 +1,6 @@
 import Marty from 'marty';
-import React from 'react';
+// import Application from 'application';
+import React from 'react/addons';
 import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 
@@ -73,7 +74,7 @@ const routes = (
   </Route>
 );
 
-const app = new Marty.Application();
+const app = new Marty.Application({});
 app.register('LogStore', LogStore);
 app.register('LogActionCreators', LogActionCreators);
 app.dispatcher.register(function (action) {

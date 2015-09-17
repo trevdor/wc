@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import mui from 'material-ui';
 const AppBar = mui.AppBar;
 

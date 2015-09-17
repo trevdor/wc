@@ -1,9 +1,6 @@
-import React from 'react';
+import React from 'react/addons';
 import mui from 'material-ui';
-import ActionAccountBox from './material-ui/svg-icons/action/account-box';
-import ActionInfo from './material-ui/svg-icons/action/info';
-import ImageCropSquare from './material-ui/svg-icons/image/crop-square';
-const { Avatar, List, ListItem, SvgIcon } = mui;
+const { Avatar, FontIcon, List, ListItem } = mui;
 const Colors = mui.Styles.Colors;
 
 class Scoreboard extends React.Component {
@@ -12,13 +9,16 @@ class Scoreboard extends React.Component {
       <List>
         <ListItem
           primaryText="Marcie"
-          leftAvatar={<Avatar icon={<ActionAccountBox />} backgroundColor={Colors.red300} />}
-          rightIcon={<ImageCropSquare />}
+          leftAvatar={<Avatar
+                      icon={<FontIcon className="material-icons">account_box</FontIcon>}
+                      backgroundColor={Colors.red300} />
+          }
+          rightIcon={<FontIcon className="material-icons">crop_square</FontIcon>}
         />
         <ListItem
           primaryText="Trevor"
-          leftAvatar={<Avatar icon={<ActionAccountBox />} backgroundColor={Colors.blue300} />}
-          rightIcon={<ImageCropSquare />}
+          leftAvatar={<Avatar icon={<FontIcon className="material-icons">account_box</FontIcon>} backgroundColor={Colors.blue300} />}
+          rightIcon={<FontIcon className="material-icons">crop_square</FontIcon>}
         />
       </List>
     );

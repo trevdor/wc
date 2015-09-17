@@ -1,14 +1,11 @@
 import Immutable from 'immutable'
 import moment from 'moment';
 import Marty from 'marty';
-import React from 'react';
+import React from 'react/addons';
 import mui from 'material-ui';
-import MapsDirectionsRun from './material-ui/svg-icons/maps/directions-run';
-import MapsLocalDrink from './material-ui/svg-icons/maps/local-drink';
-import MapsLocalDining from './material-ui/svg-icons/maps/local-dining';
 
 const Colors = mui.Styles.Colors;
-const { Avatar, Checkbox, DatePicker, FlatButton, SvgIcon } = mui;
+const { Avatar, Checkbox, DatePicker, FlatButton, FontIcon } = mui;
 
 
 class Log extends React.Component {
@@ -63,9 +60,9 @@ class Log extends React.Component {
 
           <br /><br />
         {/* More fun way to do this? */}
-        <Avatar icon={<MapsDirectionsRun />} backgroundColor={Colors.grey400} />
-        <Avatar icon={<MapsLocalDrink />} backgroundColor={Colors.grey400} />
-        <Avatar icon={<MapsLocalDining />} backgroundColor={Colors.grey400} />
+        <Avatar icon={<FontIcon className="material-icons">home</FontIcon>} backgroundColor={Colors.grey400} />
+        <Avatar icon={<FontIcon className="material-icons">local_drink</FontIcon>} backgroundColor={Colors.grey400} />
+        <Avatar icon={<FontIcon className="material-icons">local_dining</FontIcon>} backgroundColor={Colors.grey400} />
       </div>
     );
   }
