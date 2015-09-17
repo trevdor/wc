@@ -1,25 +1,69 @@
+var path = require("path");
+
 module.exports = function(config) {
   config.set({
     browsers: ['Chrome'],
-    files: [
-      'tests.webpack.js'
-    ],
-    frameworks: ['jasmine'],
+    files: [ 'test/**/*.spec.js' ],
+    frameworks: [ 'jasmine' ],
     preprocessors: {
-      'tests.webpack.js': [ 'webpack', 'sourcemap' ]
+      'test/**/*.spec.js': [ 'webpack', 'sourcemap' ]
     },
-    reporters: ['progress'],
+    reporters: [
+      'dots'//,
+      //'coverage'
+    ],
+    // coverageReporter: {
+    //   type: 'text',
+    //   dir: 'coverage/'
+    // },
     reportSlowerThan: 1000,
     webpack: {
-      devtool: 'inline-source-map', //just do inline source maps instead of the default
+      cache: true,
+      devtool: 'inline-source-map',
       module: {
-        loaders: [
-          { test: /\.spec\.js$/, loader: 'babel-loader' }
-        ]
+        loaders: [{
+          test: /\.(js|jsx)$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/
+        },{
+          test: /\.gif/,
+          loader: 'url-loader?limit=10000&mimetype=image/gif'
+        }, {
+          test: /\.jpg/,
+          loader: 'url-loader?limit=10000&mimetype=image/jpg'
+        }, {
+          test: /\.png/,
+          loader: 'url-loader?limit=10000&mimetype=image/png'
+        }, {
+          test: /\.sass/,
+          loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+        }, {
+          test: /\.css$/,
+          loader: 'style-loader!css-loader'
+        }]//,
+        // postLoaders: [{
+        //   test: /\.js$/,
+        //   exclude: /(tests|node_modules)\//,
+        //   loader: 'istanbul-instrumenter'
+        // }]
+      },
+      resolve: {
+        alias: {
+          'components': path.join(process.cwd(), './src/components/'),
+          'stores': path.join(process.cwd(), './src/stores/'),
+          'actions': path.join(process.cwd(), './src/actions/'),
+          'queries': path.join(process.cwd(), './src/queries/'),
+          'styles': path.join(process.cwd(), './src/styles/'),
+          'utils': path.join(process.cwd(), './src/utils/'),
+          'helpers': path.join(process.cwd(), './test/helpers/')
+        }
       }
     },
-    webpackServer: {
-      noInfo: true //please don't spam the console when running in karma!
+    webpackMiddleware: {
+      noInfo: true,
+      stats: {
+        colors: true
+      }
     }
   });
 };

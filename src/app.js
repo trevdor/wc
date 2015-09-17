@@ -1,5 +1,5 @@
 import Marty from 'marty';
-import React from 'react/addons';
+import React from 'react';
 import Router from 'react-router';
 import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
 

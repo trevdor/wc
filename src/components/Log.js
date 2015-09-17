@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Immutable from 'immutable'
 import moment from 'moment';
 import Marty from 'marty';

@@ -1,5 +1,5 @@
-import Log from '../Log';
-import { ViewActions } from '../utils/WcConstants.js';
+import Log from 'components/Log';
+import { ViewActions } from 'utils/WcConstants.js';
 
 describe('Log component', () => {
   it('fires a GOAL_STATUS_CHANGED action', () => {
