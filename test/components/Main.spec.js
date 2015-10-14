@@ -47,4 +47,11 @@ describe('Main component', () => {
     expect(checkboxes.length).to.equal(3);
     expect(goals).to.contain('Work out for 45 minutes');
   });
+
+  xit('calls updateGoalStatus on goal click', () => {
+    const { labels, actions } = setup();
+    ReactTestUtils.Simulate.click(labels[0]);
+
+    expect(actions.updateGoalStatus.called).to.be.true;
+  });
 });
