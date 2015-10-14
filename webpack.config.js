@@ -1,58 +1,32 @@
-'use strict';
-
+/* eslint-disable no-var */
+var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: '#inline-source-map',
-  // cache: true,
-  debug: true,
-
+  devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack/hot/only-dev-server',
-    "./src/app.js"
+    'webpack-hot-middleware/client',
+    './src/index'
   ],
-
-
   output: {
-    libraryTarget: "umd",
-    path: './dist',
-    publicPath: '/dist/',
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/static/'
   },
-
-  module: {
-    // preLoaders: [{
-    //   test: /\.(js|jsx)$/,
-    //   exclude: /node_modules/,
-    //   loader: 'eslint-loader'
-    // }],
-    loaders: [
-      { test: /\.jsx?$/,
-        loaders: [
-          'react-hot',
-          'babel-loader'
-        ],
-        exclude: /node_modules/
-      },
-      { test: /\.css$/, loader: "style!css" },
-      {
-        test: /\.jpg/,
-        loader: 'url?limit=10000&minetype=image/jpg'
-      },
-      {
-        test: /\.png/,
-        loader: 'url?limit=10000&minetype=image/png'
-      }
-    ]
-  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      '__DEVTOOLS__': true,
+      'process.env': JSON.stringify('development')
+    })
+  ],
   resolve: {
-    modulesDirectories: [".", "node_modules"],
-    extensions: ['', '.js', '.jsx', '.webpack.js'],
+    extensions: ['', '.js'],
     alias: {
       'styles': __dirname + '/src/styles',
       'components': __dirname + '/src/components/',
-      'stores': __dirname + '/src/stores/',
-      'queries': __dirname + '/src/queries/',
+      'containers': __dirname + '/src/containers/',
+      'reducers': __dirname + '/src/reducers/',
       'utils': __dirname + '/src/utils/',
       'actions': __dirname + '/src/actions/'
     }
@@ -60,5 +34,12 @@ module.exports = {
   stats: {
     colors: true,
     reasons: false
+  },
+  module: {
+    loaders: [{
+      test: /\.js$/,
+      loaders: ['babel'],
+      exclude: /node_modules/
+    }]
   }
 };

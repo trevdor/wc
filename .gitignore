@@ -1,4 +1,6 @@
 *.DS_Store
 *.htaccess
 node_modules/
+dist/
 conf/settings.json
+npm-debug*.log

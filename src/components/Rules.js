@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import mui from 'material-ui';
 const { Avatar, FontIcon, List, ListItem } = mui;
 const Colors = mui.Styles.Colors;
