@@ -2,7 +2,6 @@
   "name": "wc",
   "version": "0.3.14",
   "description": "Wellness Challenge",
-  "main": "lib/index.js",
   "scripts": {
     "start": "node server.js",
     "clean": "rimraf lib dist coverage",
