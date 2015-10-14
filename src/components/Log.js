@@ -1,84 +1,78 @@
-import Immutable from 'immutable'
 import moment from 'moment';
-import Marty from 'marty';
-import React from 'react/addons';
+import React from 'react';
 import mui from 'material-ui';
 
 const Colors = mui.Styles.Colors;
-const { Avatar, Checkbox, DatePicker, FlatButton, FontIcon } = mui;
+const { Avatar, Checkbox, DatePicker, FontIcon } = mui;
 
 
 class Log extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      logDate: moment().format('YYYY-MM-DD')
-    }
+
+  static propTypes = {
+    logEntries: React.PropTypes.object.isRequired,
+    updateGoalStatus: React.PropTypes.func.isRequired
+  }
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = { logDateKey: this._getDateKey() };
+  }
+
+  _getDateKey(date = moment()) {
+    return moment(date).format('YYYY-MM-DD');
   }
 
   _isGoalComplete(goal) {
-    return !!this.props.logEntries.getIn([this.state.logDate, goal]);
+    return !!this.props.logEntries.getIn([this.state.logDateKey, goal]);
   }
 
   _onDateChanged(nil, date) {
-    this.setState({ logDate: moment(date).format('YYYY-MM-DD') });
+    this.setState({ logDateKey: this._getDateKey(date) });
   }
 
   _onGoalChecked(e, checked) {
-    this.app.LogActionCreators.logActivity(this.state.logDate, e.target.value, checked);
+    this.props.updateGoalStatus(this.state.logDateKey, e.target.value, checked);
   }
 
   render() {
     return (
       <div>
         <DatePicker
-          autoOk={ true }
+          autoOk
           hintText="Controlled Date Input"
           onChange={ this._onDateChanged.bind(this) }
-          value={ moment(this.state.logDate).toDate() } />
+          value={ moment(this.state.logDateKey).toDate() } />
 
         <Checkbox
           name="checkboxName1"
           value="workout"
-          checked={ this._isGoalComplete("workout") }
+          checked={ this._isGoalComplete('workout') }
           onCheck={ this._onGoalChecked.bind(this) }
           label="Work out for 45 minutes"/>
 
         <Checkbox
           name="checkboxName2"
           value="water"
-          checked={ this._isGoalComplete("water") }
+          checked={ this._isGoalComplete('water') }
           onCheck={ this._onGoalChecked.bind(this) }
           label="Drink 100 oz. of water"/>
 
         <Checkbox
           name="checkboxName3"
           value="veggies"
-          checked={ this._isGoalComplete("veggies") }
+          checked={ this._isGoalComplete('veggies') }
           onCheck={ this._onGoalChecked.bind(this) }
           label="Eat 3 servings of vegetables"/>
 
           <br /><br />
         {/* More fun way to do this? */}
-        <Avatar icon={<FontIcon className="material-icons">home</FontIcon>} backgroundColor={Colors.grey400} />
-        <Avatar icon={<FontIcon className="material-icons">local_drink</FontIcon>} backgroundColor={Colors.grey400} />
-        <Avatar icon={<FontIcon className="material-icons">local_dining</FontIcon>} backgroundColor={Colors.grey400} />
+        <Avatar icon={ <FontIcon className="material-icons">home</FontIcon> } backgroundColor={ Colors.grey400 } />
+        <Avatar icon={ <FontIcon className="material-icons">local_drink</FontIcon> } backgroundColor={ Colors.grey400 } />
+        <Avatar icon={ <FontIcon className="material-icons">local_dining</FontIcon> } backgroundColor={ Colors.grey400 } />
       </div>
     );
   }
 }
 
-export default Marty.createContainer(Log, {
-  listenTo: 'LogStore',
-  fetch: {
-    logEntries() {
-      return this.app.LogStore.getAllLogData(this.props.userId);
-    }
-  },
-  failed(errors) {
-    return null; //return <div className="User User-failedToLoad">{errors}</div>;
-  },
-  pending(results) {
-    return this.done(results);
-  }
-});
+export default Log;
