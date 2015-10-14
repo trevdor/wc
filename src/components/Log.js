@@ -7,12 +7,6 @@ const { Avatar, Checkbox, DatePicker, FontIcon } = mui;
 
 
 class Log extends React.Component {
-
-  static propTypes = {
-    logEntries: React.PropTypes.object.isRequired,
-    updateGoalStatus: React.PropTypes.func.isRequired
-  }
-
   constructor(props, context) {
     super(props, context);
 
@@ -74,5 +68,10 @@ class Log extends React.Component {
     );
   }
 }
+
+Log.propTypes = {
+  logEntries: React.PropTypes.object.isRequired,
+  updateGoalStatus: React.PropTypes.func.isRequired
+};
 
 export default Log;

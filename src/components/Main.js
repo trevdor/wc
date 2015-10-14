@@ -10,11 +10,6 @@ const ThemeManager = new mui.Styles.ThemeManager();
 
 class Main extends React.Component {
 
-  static propTypes = {
-    logEntries: React.PropTypes.object.isRequired,
-    updateGoalStatus: React.PropTypes.func.isRequired
-  }
-
   getChildContext() {
     return {
       muiTheme: ThemeManager.getCurrentTheme()
@@ -39,6 +34,11 @@ class Main extends React.Component {
     );
   }
 }
+
+Main.propTypes = {
+  logEntries: React.PropTypes.object.isRequired,
+  updateGoalStatus: React.PropTypes.func.isRequired
+};
 
 Main.childContextTypes = {
   muiTheme: React.PropTypes.object

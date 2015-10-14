@@ -15,11 +15,7 @@ if (typeof __DEVTOOLS__ !== 'undefined' && __DEVTOOLS__) {
 }
 
 
-export default class Root extends React.Component {
-
-  static propTypes = {
-    history: RouterPropTypes.history.isRequired
-  };
+class Root extends React.Component {
 
   render() {
     return (
@@ -29,3 +25,9 @@ export default class Root extends React.Component {
     );
   }
 }
+
+Root.propTypes = {
+  history: RouterPropTypes.history.isRequired
+};
+
+export default Root;
