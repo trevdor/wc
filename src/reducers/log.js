@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 import moment from 'moment';
-import { UPDATE_GOAL_STATUS } from 'actions/log';
+import { UPDATE_GOAL_STATUS } from '../actions/log';
 
 
 const defaultLogState = new Immutable.Map();

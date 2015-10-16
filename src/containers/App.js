@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Main from 'components/Main';
 import { bindActionCreators } from 'redux';
-import * as LogActions from 'actions/log';
+import * as log from 'actions/log';
 
 
 function mapStateToProps(state) {
@@ -11,7 +11,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(LogActions, dispatch);
+  return bindActionCreators(log, dispatch);
 }
 
 
