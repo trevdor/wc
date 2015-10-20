@@ -4,10 +4,10 @@ import mui from 'material-ui';
 import Immutable from 'immutable';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from '../../src/components/Main';
+import { Main, Log, Rules, Scoreboard } from '../../src/components';
 import ReactTestUtils from 'react-addons-test-utils';
 
-const { Checkbox } = mui;
+const { Checkbox, Tab } = mui;
 
 function setup() {
   const actions = { updateGoalStatus: spy() };
@@ -41,5 +41,16 @@ describe('Main component', () => {
 
     expect(checkboxes.length).to.equal(3);
     expect(goals).to.contain('Work out for 45 minutes');
+  });
+
+  it('renders the three main components', () => {
+    const { component } = setup();
+    const scoreboard = ReactTestUtils.scryRenderedComponentsWithType(component, Scoreboard);
+    const log = ReactTestUtils.scryRenderedComponentsWithType(component, Log);
+    const rules = ReactTestUtils.scryRenderedComponentsWithType(component, Rules);
+
+    expect(scoreboard).to.exist;
+    expect(rules).to.exist;
+    expect(log).to.exist;
   });
 });
