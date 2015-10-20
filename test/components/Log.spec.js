@@ -3,8 +3,7 @@ import { spy } from 'sinon';
 import mui from 'material-ui';
 import Immutable from 'immutable';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Main from '../../src/components/Main';
+import Log from '../../src/components/Log';
 import ReactTestUtils from 'react-addons-test-utils';
 
 const { Checkbox } = mui;
@@ -21,7 +20,7 @@ function setup() {
   });
 
   const component = ReactTestUtils.renderIntoDocument(
-    <Main logEntries={ logEntries } { ...actions } />
+    <Log logEntries={ logEntries } { ...actions } />
   );
 
   return {
@@ -32,14 +31,11 @@ function setup() {
   };
 }
 
-describe('Main component', () => {
-  it('displays three goals', () => {
-    const { checkboxes } = setup();
-    const goals = checkboxes.map(checkbox => {
-      return ReactDOM.findDOMNode(checkbox).textContent;
-    });
-
-    expect(checkboxes.length).to.equal(3);
-    expect(goals).to.contain('Work out for 45 minutes');
+describe('Log component', () => {
+  it('calls updateGoalStatus on goal click', () => {
+    const { component, actions } = setup();
+    const log = ReactTestUtils.scryRenderedComponentsWithType(component, Log)[0];
+    log.props.updateGoalStatus();
+    expect(actions.updateGoalStatus.called).to.be.true;
   });
 });

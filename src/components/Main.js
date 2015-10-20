@@ -24,7 +24,7 @@ class Main extends React.Component {
             <Scoreboard />
           </Tab>
           <Tab label="Log" route="log">
-            <Log logEntries={ this.props.logEntries } updateGoalStatus= { this.props.updateGoalStatus }/>
+            <Log logEntries={ this.props.logEntries } updateGoalStatus={ this.props.updateGoalStatus }/>
           </Tab>
           <Tab label="Rules" route="rules">
             <Rules />

@@ -3,8 +3,12 @@ import React from 'react';
 import mui from 'material-ui';
 
 const Colors = mui.Styles.Colors;
-const { Avatar, Checkbox, DatePicker, FontIcon } = mui;
+const { Checkbox, DatePicker } = mui;
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin(); // Can go away with 1.0 release of plugin
+
+const ThemeManager = new mui.Styles.ThemeManager();
 
 class Log extends React.Component {
   constructor(props, context) {
@@ -13,8 +17,19 @@ class Log extends React.Component {
     this.state = { logDateKey: this._getDateKey() };
   }
 
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  }
+
   _getDateKey(date = moment()) {
     return moment(date).format('YYYY-MM-DD');
+  }
+
+  _getGoalColor({ startColor, finishColor }) {
+    const goalDone = this.props.logEntries[this.state.logDateKey] && this.props.logEntries[this.state.logDateKey].status;
+    return goalDone ? finishColor : startColor || Colors.grey400;
   }
 
   _isGoalComplete(goal) {
@@ -58,12 +73,6 @@ class Log extends React.Component {
           checked={ this._isGoalComplete('veggies') }
           onCheck={ this._onGoalChecked.bind(this) }
           label="Eat 3 servings of vegetables"/>
-
-          <br /><br />
-        {/* More fun way to do this? */}
-        <Avatar icon={ <FontIcon className="material-icons">home</FontIcon> } backgroundColor={ Colors.grey400 } />
-        <Avatar icon={ <FontIcon className="material-icons">local_drink</FontIcon> } backgroundColor={ Colors.grey400 } />
-        <Avatar icon={ <FontIcon className="material-icons">local_dining</FontIcon> } backgroundColor={ Colors.grey400 } />
       </div>
     );
   }
@@ -72,6 +81,10 @@ class Log extends React.Component {
 Log.propTypes = {
   logEntries: React.PropTypes.object.isRequired,
   updateGoalStatus: React.PropTypes.func.isRequired
+};
+
+Log.childContextTypes = {
+  muiTheme: React.PropTypes.object
 };
 
 export default Log;
