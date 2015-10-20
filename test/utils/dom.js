@@ -1,4 +1,4 @@
-import jsdom from 'jsdom';
+import { jsdom } from 'jsdom';
 
 // set globals for mocha that make access to document and window feel
 // natural in the test environment
