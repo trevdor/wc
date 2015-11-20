@@ -6,15 +6,7 @@ const { Tabs, Tab } = mui;
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin(); // Can go away with 1.0 release of plugin
 
-const ThemeManager = new mui.Styles.ThemeManager();
-
 class Main extends React.Component {
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  }
 
   render() {
     return (

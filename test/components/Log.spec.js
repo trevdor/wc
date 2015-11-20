@@ -3,6 +3,7 @@ import { spy } from 'sinon';
 import mui from 'material-ui';
 import Immutable from 'immutable';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Log from '../../src/components/Log';
 import ReactTestUtils from 'react-addons-test-utils';
 
@@ -26,12 +27,21 @@ function setup() {
   return {
     component: component,
     actions: actions,
-    checkboxes: ReactTestUtils.scryRenderedComponentsWithType(component, Checkbox),
-    labels: ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'label')
+    checkboxes: ReactTestUtils.scryRenderedComponentsWithType(component, Checkbox)
   };
 }
 
 describe('Log component', () => {
+  it('displays three goals', () => {
+    const { checkboxes } = setup();
+    const goals = checkboxes.map(checkbox => {
+      return ReactDOM.findDOMNode(checkbox).textContent;
+    });
+
+    expect(checkboxes.length).to.equal(3);
+    expect(goals).to.contain('Work out for 45 minutes');
+  });
+
   it('calls updateGoalStatus on goal click', () => {
     const { component, actions } = setup();
     const log = ReactTestUtils.scryRenderedComponentsWithType(component, Log)[0];

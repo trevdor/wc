@@ -1,33 +1,31 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDom from 'react-dom';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
-/**
- * Puts Redux DevTools into a separate window.
- * Based on https://gist.github.com/tlrobinson/1e63d15d3e5f33410ef7#gistcomment-1560218.
- */
+
 export default function createDevToolsWindow(store) {
-  // Window name.
-  const name = 'Redux DevTools';
+  // give it a name so it reuses the same window
+  const win = window.open(null, 'redux-devtools', 'menubar=no,location=no,resizable=yes,scrollbars=no,status=no');
 
-  // Give it a name so it reuses the same window.
-  const win = window.open(
-    null,
-    name,
-    'menubar=no,location=no,resizable=yes,scrollbars=no,status=no'
-  );
+  // Close separate window by closing working tab
+  window.onunload = () => {
+    win.close();
+  };
 
-  // Reload in case it's reusing the same window with the old content.
+  // reload in case it's reusing the same window with the old content
   win.location.reload();
 
-  // Set visible Window title.
-  win.document.title = name;
+  // wait a little bit for it to reload, then render
+  setTimeout(() => {
+    // Wait for the reload to prevent:
+    // "Uncaught Error: Invariant Violation: _registerComponent(...): Target container is not a DOM element."
+    win.document.write('<div id="react-devtools-root"></div>');
 
-  // Wait a little bit for it to reload, then render.
-  setTimeout(() => render(
-    <DebugPanel top right bottom left>
-      <DevTools store={store} monitor={LogMonitor} />
-    </DebugPanel>,
-    win.document.body.appendChild(document.createElement('div'))
-  ), 10);
+    ReactDom.render(
+      (
+        <DebugPanel top right bottom left key="debugPanel">
+          <DevTools store={store} monitor={LogMonitor} />
+        </DebugPanel>
+      ), win.document.getElementById('react-devtools-root'));
+  }, 10);
 }

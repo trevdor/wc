@@ -8,19 +8,11 @@ const { Checkbox, DatePicker } = mui;
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin(); // Can go away with 1.0 release of plugin
 
-const ThemeManager = new mui.Styles.ThemeManager();
-
 class Log extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = { logDateKey: this._getDateKey() };
-  }
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
   }
 
   _getDateKey(date = moment()) {
