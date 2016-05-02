@@ -1,7 +1,14 @@
 import React from 'react';
-import mui from 'material-ui';
-const { Avatar, FontIcon, List, ListItem } = mui;
-const Colors = mui.Styles.Colors;
+import Avatar from 'material-ui/lib/avatar';
+import FontIcon from 'material-ui/lib/font-icon';
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
+import {
+  blue300,
+  green300,
+  lightBlack,
+  red300
+} from 'material-ui/lib/styles/colors';
 
 class Rules extends React.Component {
   render() {
@@ -9,33 +16,33 @@ class Rules extends React.Component {
       <List>
         <ListItem
           primaryText="Exercise"
-          leftAvatar={<Avatar icon={<FontIcon className="material-icons">directions_run</FontIcon>} backgroundColor={Colors.red300} />}
+          leftAvatar={ <Avatar icon={ <FontIcon className="material-icons">directions_run</FontIcon> } backgroundColor={ red300 } /> }
           secondaryText={
             <p>
-              <span style={{color: Colors.lightBlack}}>Work out 45 min a day, 4 days a week</span>
+              <span style={ { color: lightBlack } }>45 min/day, 4 days/week</span>
             </p>
-          }
-          secondaryTextLines={1}
+           }
+          secondaryTextLines={ 1 }
         />
         <ListItem
           primaryText="Water Intake"
-          leftAvatar={<Avatar icon={<FontIcon className="material-icons">local_drink</FontIcon>} backgroundColor={Colors.blue300} />}
+          leftAvatar={ <Avatar icon={ <FontIcon className="material-icons">local_drink</FontIcon> } backgroundColor={ blue300 } /> }
           secondaryText={
             <p>
-              <span style={{color: Colors.lightBlack}}>Drink 64 oz. of water a day.</span>
+              <span style={ { color: lightBlack } }>64 oz. daily</span>
             </p>
-          }
-          secondaryTextLines={1}
+           }
+          secondaryTextLines={ 1 }
         />
         <ListItem
           primaryText="Eat Your Veggies"
-          leftAvatar={<Avatar icon={<FontIcon className="material-icons">local_dining</FontIcon>} backgroundColor={Colors.green300} />}
+          leftAvatar={ <Avatar icon={ <FontIcon className="material-icons">local_dining</FontIcon> } backgroundColor={ green300 } /> }
           secondaryText={
             <p>
-              <span style={{color: Colors.lightBlack}}>Have 3 servings of vegetables a day.</span>
+              <span style={ { color: lightBlack } }>3 servings daily</span>
             </p>
-          }
-          secondaryTextLines={1}
+           }
+          secondaryTextLines={ 1 }
         />
       </List>
     );

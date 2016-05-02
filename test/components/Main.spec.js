@@ -2,14 +2,14 @@ import { expect } from 'chai';
 import mui from 'material-ui';
 import Immutable from 'immutable';
 import React from 'react';
-import { Main, Log, Rules, Scoreboard } from '../../src/components';
+import { App, Log, Rules, Scoreboard } from '../../src/components';
 import ReactTestUtils from 'react-addons-test-utils';
 
 const { Checkbox } = mui;
 
 function setup() {
   const component = ReactTestUtils.renderIntoDocument(
-    <Main logEntries={ new Immutable.Map() } />
+    <App logEntries={ new Immutable.Map() } />
   );
 
   return {
@@ -19,7 +19,7 @@ function setup() {
   };
 }
 
-describe('Main component', () => {
+describe('App component', () => {
   it('renders the three main components', () => {
     const { component } = setup();
     const scoreboard = ReactTestUtils.scryRenderedComponentsWithType(component, Scoreboard);

@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from './containers/Root';
-import { createHistory } from 'history';
+import { Provider } from 'react-redux';
+import { combineReducers } from 'redux';
+import { createStore } from 'redux';
 
+import { App } from 'components';
+import log from 'reducers/Log';
 
-const history = createHistory();
+const AppReducer = combineReducers({
+  log
+});
 
+const store = createStore(AppReducer);
 
 ReactDOM.render(
-  <Root history={history} />,
+  <Provider store={ store }>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );

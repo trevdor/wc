@@ -1,20 +1,26 @@
 import Immutable from 'immutable';
 import moment from 'moment';
-import { UPDATE_GOAL_STATUS } from '../actions/log';
+import { UPDATE_GOAL_STATUS } from 'actions/Log';
 
 
 const defaultLogState = new Immutable.Map();
 
-export default function logEntries(state = defaultLogState, action) {
+const stateKey = 'log';
+
+export default function log(state = defaultLogState, action) {
   const dateString = moment(action.date).format('YYYY-MM-DD');
 
   switch (action.type) {
-  case UPDATE_GOAL_STATUS:
-    return state.setIn([dateString, action.goal], action.status);
-  default:
-    return state;
+    case UPDATE_GOAL_STATUS:
+      return state.setIn([dateString, action.goal], action.status);
+    default:
+      return state;
   }
-}
+};
+
+export const getLog = (state) => {
+  return state[stateKey];
+};
 
 /*
 [

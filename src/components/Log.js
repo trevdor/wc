@@ -1,14 +1,17 @@
 import moment from 'moment';
 import React from 'react';
-import mui from 'material-ui';
 
-const Colors = mui.Styles.Colors;
-const { Checkbox, DatePicker } = mui;
-
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin(); // Can go away with 1.0 release of plugin
+import { grey400 } from 'material-ui/lib/styles/colors';
+import Checkbox from 'material-ui/lib/checkbox';
+import DatePicker from 'material-ui/lib/date-picker/date-picker';
+import DayButton from 'material-ui/lib/date-picker/day-button';
 
 class Log extends React.Component {
+  static propTypes = {
+    logEntries: React.PropTypes.object.isRequired,
+    updateGoalStatus: React.PropTypes.func.isRequired
+  };
+
   constructor(props, context) {
     super(props, context);
 
@@ -21,7 +24,7 @@ class Log extends React.Component {
 
   _getGoalColor({ startColor, finishColor }) {
     const goalDone = this.props.logEntries[this.state.logDateKey] && this.props.logEntries[this.state.logDateKey].status;
-    return goalDone ? finishColor : startColor || Colors.grey400;
+    return goalDone ? finishColor : startColor || grey400;
   }
 
   _isGoalComplete(goal) {
@@ -65,18 +68,11 @@ class Log extends React.Component {
           checked={ this._isGoalComplete('veggies') }
           onCheck={ this._onGoalChecked.bind(this) }
           label="Eat 3 servings of vegetables"/>
+
+          <DayButton />
       </div>
     );
   }
 }
-
-Log.propTypes = {
-  logEntries: React.PropTypes.object.isRequired,
-  updateGoalStatus: React.PropTypes.func.isRequired
-};
-
-Log.childContextTypes = {
-  muiTheme: React.PropTypes.object
-};
 
 export default Log;

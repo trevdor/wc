@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Main from 'components/Main';
+import { App } from 'components';
 import { bindActionCreators } from 'redux';
 import * as log from 'actions/log';
 
@@ -15,4 +15,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

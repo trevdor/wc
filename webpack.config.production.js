@@ -1,10 +1,7 @@
-/* eslint-disable no-var */
-var path = require('path');
-var webpack = require('webpack');
-
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  devtool: 'source-map',
   entry: './src/index',
   output: {
     path: path.join(__dirname, 'dist'),
@@ -39,6 +36,11 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel-loader'],
+      exclude: /node_modules/
+    },
+    {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader',
       exclude: /node_modules/
     }]
   }

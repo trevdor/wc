@@ -1,7 +1,10 @@
 import React from 'react';
-import mui from 'material-ui';
-const { Avatar, FontIcon, List, ListItem } = mui;
-const Colors = mui.Styles.Colors;
+import Avatar from 'material-ui/lib/avatar';
+import FontIcon from 'material-ui/lib/font-icon';
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
+import { blue300, red300 } from 'material-ui/lib/styles/colors';
+
 
 class Scoreboard extends React.Component {
   render() {
@@ -9,16 +12,16 @@ class Scoreboard extends React.Component {
       <List>
         <ListItem
           primaryText="Marcie"
-          leftAvatar={<Avatar
-                      icon={<FontIcon className="material-icons">account_box</FontIcon>}
-                      backgroundColor={Colors.red300} />
+          leftAvatar={ <Avatar
+                      icon={ <FontIcon className="material-icons">account_box</FontIcon> }
+                      backgroundColor={ red300 } />
           }
-          rightIcon={<FontIcon className="material-icons">crop_square</FontIcon>}
+          rightIcon={ <FontIcon className="material-icons">crop_square</FontIcon> }
         />
         <ListItem
           primaryText="Trevor"
-          leftAvatar={<Avatar icon={<FontIcon className="material-icons">account_box</FontIcon>} backgroundColor={Colors.blue300} />}
-          rightIcon={<FontIcon className="material-icons">crop_square</FontIcon>}
+          leftAvatar={ <Avatar icon={ <FontIcon className="material-icons">account_box</FontIcon> } backgroundColor={ blue300 } /> }
+          rightIcon={ <FontIcon className="material-icons">crop_square</FontIcon> }
         />
       </List>
     );
