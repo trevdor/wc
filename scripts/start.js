@@ -123,12 +123,12 @@ function onProxyError(proxy) {
     // And immediately send the proper error response to the client.
     // Otherwise, the request will eventually timeout with ERR_EMPTY_RESPONSE on the client side.
     if (res.writeHead && !res.headersSent) {
-        res.writeHead(500);
+      res.writeHead(500);
     }
     res.end('Proxy error: Could not proxy request ' + req.url + ' from ' +
       host + ' to ' + proxy + ' (' + err.code + ').'
     );
-  }
+  };
 }
 
 function addMiddleware(devServer) {
@@ -220,7 +220,7 @@ function runDevServer(host, port, protocol) {
       ignored: /node_modules/
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
-    https: protocol === "https",
+    https: protocol === 'https',
     host: host
   });
 
@@ -228,7 +228,7 @@ function runDevServer(host, port, protocol) {
   addMiddleware(devServer);
 
   // Launch WebpackDevServer.
-  devServer.listen(port, (err, result) => {
+  devServer.listen(port, (err, result) => {  // eslint-disable-line no-unused-vars
     if (err) {
       return console.log(err);
     }
@@ -241,7 +241,7 @@ function runDevServer(host, port, protocol) {
 }
 
 function run(port) {
-  var protocol = process.env.HTTPS === 'true' ? "https" : "http";
+  var protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
   var host = process.env.HOST || 'localhost';
   setupCompiler(host, port, protocol);
   runDevServer(host, port, protocol);
@@ -258,7 +258,7 @@ detect(DEFAULT_PORT).then(port => {
   clearConsole();
   var question =
     chalk.yellow('Something is already running on port ' + DEFAULT_PORT + '.') +
-    '\n\nWould you like to run the app on another port instead?';
+    `\n\nWould you like to run the app on another port instead?`;
 
   prompt(question, true).then(shouldChangePort => {
     if (shouldChangePort) {

@@ -13,3 +13,4 @@ conf/settings.json
 .env
 .htaccess
 npm-debug*.log
+yarn.lock
