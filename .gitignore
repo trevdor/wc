@@ -1,6 +1,15 @@
-*.DS_Store
-*.htaccess
-node_modules/
-dist/
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# production
+build
 conf/settings.json
+
+# misc
+.DS_Store
+.env
+.htaccess
 npm-debug*.log

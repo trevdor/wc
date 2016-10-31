@@ -1,21 +1,58 @@
 import moment from 'moment';
 import React from 'react';
 
-import { grey400 } from 'material-ui/lib/styles/colors';
-import Checkbox from 'material-ui/lib/checkbox';
-import DatePicker from 'material-ui/lib/date-picker/date-picker';
-import DayButton from 'material-ui/lib/date-picker/day-button';
+import { grey400 } from 'material-ui/styles/colors';
+import DatePicker from 'material-ui/DatePicker';
+import Divider from 'material-ui/Divider';
+import RaisedButton from 'material-ui/RaisedButton';
+import { List } from 'material-ui/List';
+import {
+  blue300,
+  green300,
+  red300
+} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-class Log extends React.Component {
+import LoggleButton from './LoggleButton';
+
+const getGoalStatus = (name, date) => {
+  return fetch(`https://www.trevdiggy.com/wc/get_goal_status.php`, {
+    method: 'POST',
+    body: JSON.stringify({
+      'name': name,
+      'date': date
+    })
+  }).then(res => res.json())
+  .then(res => console.log(res));
+};
+
+export default class Log extends React.Component {
+  state = {
+    goals: {},
+    logDateKey: this._getDateKey()
+  };
+
   static propTypes = {
+    challengeStartDate: React.PropTypes.object.isRequired,
+    challengeEndDate: React.PropTypes.object.isRequired,
     logEntries: React.PropTypes.object.isRequired,
     updateGoalStatus: React.PropTypes.func.isRequired
   };
 
-  constructor(props, context) {
-    super(props, context);
+  static childContextTypes = {
+    muiTheme: React.PropTypes.object.isRequired
+  };
 
-    this.state = { logDateKey: this._getDateKey() };
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData() {
+    getGoalStatus('Trevor', this.state.logDateKey).then(goals => this.setState({ goals }));
+  }
+
+  getChildContext() {
+    return { muiTheme: getMuiTheme({ userAgent: false }) };
   }
 
   _getDateKey(date = moment()) {
@@ -28,51 +65,79 @@ class Log extends React.Component {
   }
 
   _isGoalComplete(goal) {
-    return !!this.props.logEntries.getIn([this.state.logDateKey, goal]);
+    const goalMap = {
+      'workout': 4,
+      'water': 2,
+      'veggies': 3
+    };
+    const goalIndex = goalMap[goal];
+    return this.state.goals[goalIndex] === 1;
+    // return !!this.props.logEntries.getIn([this.state.logDateKey, goal]);
   }
 
   _onDateChanged(nil, date) {
     this.setState({ logDateKey: this._getDateKey(date) });
   }
 
-  _onGoalChecked(e, checked) {
-    this.props.updateGoalStatus(this.state.logDateKey, e.target.value, checked);
+  _onGoalChecked(goalKey) {
+    this.props.updateGoalStatus(this.state.logDateKey, goalKey, !this._isGoalComplete(goalKey));
+  }
+
+  _openDatePicker() {
+    this.refs.datepicker.openDialog();
   }
 
   render() {
     return (
       <div>
-        <DatePicker
-          autoOk
-          hintText="Controlled Date Input"
-          onChange={ this._onDateChanged.bind(this) }
-          value={ moment(this.state.logDateKey).toDate() } />
-
-        <Checkbox
-          name="checkboxName1"
-          value="workout"
-          checked={ this._isGoalComplete('workout') }
-          onCheck={ this._onGoalChecked.bind(this) }
-          label="Work out for 45 minutes"/>
-
-        <Checkbox
-          name="checkboxName2"
-          value="water"
-          checked={ this._isGoalComplete('water') }
-          onCheck={ this._onGoalChecked.bind(this) }
-          label="Drink 100 oz. of water"/>
-
-        <Checkbox
-          name="checkboxName3"
-          value="veggies"
-          checked={ this._isGoalComplete('veggies') }
-          onCheck={ this._onGoalChecked.bind(this) }
-          label="Eat 3 servings of vegetables"/>
-
-          <DayButton />
+        <div style={ {display: 'flex', justifyContent: 'center', flexWrap: 'wrap'} }>
+          <RaisedButton
+            label={ moment(this.state.logDateKey).format('MMMM D') }
+            onTouchTap={ this._openDatePicker.bind(this) }
+            secondary
+            style={ {margin: '1em'} }
+          />
+          <DatePicker
+            autoOk
+            hintText="Controlled Date Input"
+            onChange={ this._onDateChanged.bind(this) }
+            ref="datepicker"
+            value={ moment(this.state.logDateKey).toDate() }
+            textFieldStyle={ {'display': 'none'} }
+            minDate={ this.props.challengeStartDate.toDate() }
+            maxDate={ this.props.challengeEndDate.toDate() }
+            disableYearSelection={ true }
+          />
+        </div>
+        <List>
+          <LoggleButton
+            color={ red300 }
+            complete={ this._isGoalComplete('workout') }
+            description="45 min/day, 4 days/week"
+            icon="directions_run"
+            onClick={ this._onGoalChecked.bind(this, 'workout') }
+            title="Exercise"
+          />
+          <Divider />
+          <LoggleButton
+            color={ blue300 }
+            complete={ this._isGoalComplete('water') }
+            description="64 oz. daily"
+            icon="local_drink"
+            onClick={ this._onGoalChecked.bind(this, 'water') }
+            title="Water Intake"
+          />
+          <Divider />
+          <LoggleButton
+            color={ green300 }
+            complete={ this._isGoalComplete('veggies') }
+            description="3 servings daily"
+            icon="local_dining"
+            onClick={ this._onGoalChecked.bind(this, 'veggies') }
+            title="Eat Your Veggies"
+          />
+        </List>
       </div>
     );
   }
 }
-
-export default Log;

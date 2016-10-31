@@ -1,16 +1,26 @@
 import React from 'react';
-import Avatar from 'material-ui/lib/avatar';
-import FontIcon from 'material-ui/lib/font-icon';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
+import Avatar from 'material-ui/Avatar';
+import FontIcon from 'material-ui/FontIcon';
+import { List, ListItem } from 'material-ui/List';
 import {
   blue300,
   green300,
   lightBlack,
   red300
-} from 'material-ui/lib/styles/colors';
+} from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 
 class Rules extends React.Component {
+
+  static childContextTypes = {
+    muiTheme: React.PropTypes.object.isRequired
+  };
+
+  getChildContext() {
+    return { muiTheme: getMuiTheme({ userAgent: false }) };
+  }
+
   render() {
     return (
       <List>

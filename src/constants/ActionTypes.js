@@ -1,3 +1,0 @@
-export default {
-  UPDATE_GOAL_STATUS: 'UPDATE_GOAL_STATUS'
-};
