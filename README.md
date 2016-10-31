@@ -2,7 +2,7 @@
 
 #### Wellness Challenge
 
-Compete with friends to reach shared health goals. This is a React/Redux app using [Material-UI](http://material-ui.com) components and [Auth0](https://auth0.com) for identity management. 
+Compete with friends to reach shared health goals. This is a React app using [Material-UI](http://material-ui.com) components.
 
 *This is a work in progress! Not ready for actual use!*
 

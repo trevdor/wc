@@ -7,7 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
 const getScores = () => {
-  return fetch(`https://www.trevdiggy.com/wc/get_scores.php`)
+  return fetch('https://www.trevdiggy.com/wc/get_scores.php')
     .then(res => res.json());
 };
 

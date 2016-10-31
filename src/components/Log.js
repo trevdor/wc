@@ -16,7 +16,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import LoggleButton from './LoggleButton';
 
 const getGoalStatus = (name, date) => {
-  return fetch(`https://www.trevdiggy.com/wc/get_goal_status.php`, {
+  return fetch('https://www.trevdiggy.com/wc/get_goal_status.php', {
     method: 'POST',
     body: JSON.stringify({
       'name': name,
