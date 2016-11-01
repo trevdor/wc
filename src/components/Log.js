@@ -1,7 +1,7 @@
+import Immutable from 'immutable';
 import moment from 'moment';
 import React from 'react';
 
-import { grey400 } from 'material-ui/styles/colors';
 import DatePicker from 'material-ui/DatePicker';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -15,40 +15,36 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import LoggleButton from './LoggleButton';
 
-const getGoalStatus = (name, date) => {
-  return fetch('https://www.trevdiggy.com/wc/get_goal_status.php', {
+const getLogEntries = (name) => {
+  return fetch('https://www.trevdiggy.com/wc/get_log_entries.php', {
     method: 'POST',
-    body: JSON.stringify({
-      'name': name,
-      'date': date
-    })
-  }).then(res => res.json())
-  .then(res => console.log(res));
+    body: JSON.stringify({ 'name': name })
+  }).then(res => res.json());
 };
+
 
 export default class Log extends React.Component {
   state = {
-    goals: {},
+    logEntries: Immutable.Map(), // eslint-disable-line new-cap
     logDateKey: this._getDateKey()
   };
 
   static propTypes = {
     challengeStartDate: React.PropTypes.object.isRequired,
-    challengeEndDate: React.PropTypes.object.isRequired,
-    logEntries: React.PropTypes.object.isRequired,
-    updateGoalStatus: React.PropTypes.func.isRequired
+    challengeEndDate: React.PropTypes.object.isRequired
   };
 
   static childContextTypes = {
     muiTheme: React.PropTypes.object.isRequired
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.getData();
   }
 
   getData() {
-    getGoalStatus('Trevor', this.state.logDateKey).then(goals => this.setState({ goals }));
+    getLogEntries('Trevor').then(logEntries => this.setState({ logEntries: Immutable.fromJS(logEntries) }));
+    console.log(JSON.stringify(this.state));
   }
 
   getChildContext() {
@@ -59,11 +55,6 @@ export default class Log extends React.Component {
     return moment(date).format('YYYY-MM-DD');
   }
 
-  _getGoalColor({ startColor, finishColor }) {
-    const goalDone = this.props.logEntries[this.state.logDateKey] && this.props.logEntries[this.state.logDateKey].status;
-    return goalDone ? finishColor : startColor || grey400;
-  }
-
   _isGoalComplete(goal) {
     const goalMap = {
       'workout': 4,
@@ -71,7 +62,8 @@ export default class Log extends React.Component {
       'veggies': 3
     };
     const goalIndex = goalMap[goal];
-    return this.state.goals[goalIndex] === 1;
+
+    return !!this.state.logEntries.getIn([this.state.logDateKey, goalIndex]);
     // return !!this.props.logEntries.getIn([this.state.logDateKey, goal]);
   }
 
@@ -80,7 +72,13 @@ export default class Log extends React.Component {
   }
 
   _onGoalChecked(goalKey) {
-    this.props.updateGoalStatus(this.state.logDateKey, goalKey, !this._isGoalComplete(goalKey));
+    const goalMap = {
+      'workout': 4,
+      'water': 2,
+      'veggies': 3
+    };
+    const goalIndex = goalMap[goalKey];
+    this.setState({ logEntries: this.state.logEntries.setIn([this.state.logDateKey, goalIndex], !this._isGoalComplete(goalKey))});
   }
 
   _openDatePicker() {
