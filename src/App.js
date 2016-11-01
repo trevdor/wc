@@ -1,4 +1,3 @@
-import Immutable from 'immutable';
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Tabs, Tab } from 'material-ui/Tabs';
@@ -8,17 +7,12 @@ injectTapEventPlugin(); // "Can go away with 1.0 release of React" -- so sayeth 
 
 import { Log, Scoreboard } from './components';
 
-const updateGoalStatus = (date, goal, status) => {
-  console.log(date, goal, status);
-};
 
 class App extends Component {
 
   static propTypes = {
     challengeStartDate: React.PropTypes.object.isRequired,
-    challengeEndDate: React.PropTypes.object.isRequired,
-    logEntries: React.PropTypes.object.isRequired,
-    updateGoalStatus: React.PropTypes.func.isRequired
+    challengeEndDate: React.PropTypes.object.isRequired
   };
 
   static childContextTypes = {
@@ -41,9 +35,7 @@ class App extends Component {
       <div>
         <Tabs>
           <Tab label="Log">
-            <Log logEntries={ this.props.logEntries }
-                 updateGoalStatus={ this.props.updateGoalStatus }
-                 challengeStartDate={ this.props.challengeStartDate }
+            <Log challengeStartDate={ this.props.challengeStartDate }
                  challengeEndDate={ this.props.challengeEndDate } />
           </Tab>
           <Tab label="Score">
@@ -60,20 +52,7 @@ class App extends Component {
 
 App.defaultProps = {
   challengeStartDate: moment('2016-10-01'),
-  challengeEndDate: moment('2016-10-31'),
-  logEntries: Immutable.fromJS([
-    '2016-10-01': {
-      exercise: true,
-      veggies: false,
-      water: true
-    },
-    '2016-10-02': {
-      exercise: false,
-      veggies: true,
-      water: true
-    }
-  ]),
-  updateGoalStatus: updateGoalStatus
+  challengeEndDate: moment('2016-10-31')
 };
 
 export default App;
