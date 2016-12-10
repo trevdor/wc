@@ -1,58 +1,69 @@
+// import Immutable from 'immutable';
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import MainTheme from './styles/MainTheme';
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
 import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin(); // "Can go away with 1.0 release of React" -- so sayeth material-ui. Ha!
+injectTapEventPlugin();
 
 import { Log, Scoreboard } from './components';
 
+const getChallenge = (challengeId) => {
+  return fetch('http://wc.farlow.casa/get_challenge.php', {
+    method: 'POST',
+    body: JSON.stringify({ challengeId }),
+  }).then(res => res.json());
+};
 
 class App extends Component {
 
   static propTypes = {
     challengeStartDate: React.PropTypes.object.isRequired,
-    challengeEndDate: React.PropTypes.object.isRequired
+    challengeEndDate: React.PropTypes.object.isRequired,
   };
 
-  static childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired
+  state = {
+    challenge: { goals: [] },
   };
 
-  getChildContext() {
-    return { muiTheme: getMuiTheme({ userAgent: false }) };
+  componentWillMount() {
+    getChallenge(this.props.challengeId).then(challenge => this.setState({ challenge }));
   }
 
   render() {
-    let children = null;
-    if (this.props.children) {
-      children = React.cloneElement(this.props.children, {
-        auth: this.props.route.auth //sends auth instance from route to children
-      });
-    }
-
+    // console.warn(`this.state.challenge.goals: ${JSON.stringify(this.state.challenge.goals)}`);
     return (
-      <div>
-        <Tabs>
-          <Tab label="Log">
-            <Log challengeStartDate={ this.props.challengeStartDate }
-                 challengeEndDate={ this.props.challengeEndDate } />
-          </Tab>
-          <Tab label="Score">
-            <Scoreboard />
-          </Tab>
-        </Tabs>
-        <div style={ {display: 'flex', justifyContent: 'center'} }>
-          { children }
+      <MuiThemeProvider muiTheme={ MainTheme }>
+        <div>
+          <Tabs>
+            <Tab label="Log">
+              <Log
+                challengeId={ this.props.challengeId }
+                challengeStartDate={ this.props.challengeStartDate }
+                challengeEndDate={ this.props.challengeEndDate }
+                goals={ this.state.challenge.goals }
+                userId="2"
+              />
+            </Tab>
+            <Tab label="Score">
+              <Scoreboard />
+            </Tab>
+          </Tabs>
         </div>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
 
 App.defaultProps = {
-  challengeStartDate: moment('2016-10-01'),
-  challengeEndDate: moment('2016-10-31')
+  challengeId: "1",
+  challengeStartDate: moment('2016-12-01'),
+  challengeEndDate: moment('2016-12-31'),
 };
 
 export default App;

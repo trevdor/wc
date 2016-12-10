@@ -3,14 +3,9 @@ import Avatar from 'material-ui/Avatar';
 import FontIcon from 'material-ui/FontIcon';
 import { ListItem } from 'material-ui/List';
 import * as colors from 'material-ui/styles/colors';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
 class LoggleButton extends React.Component {
-
-  static childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired
-  };
 
   static propTypes = {
     complete: React.PropTypes.bool.isRequired,
@@ -19,7 +14,7 @@ class LoggleButton extends React.Component {
     defaultColor: React.PropTypes.string,
     icon: React.PropTypes.string.isRequired,
     onClick: React.PropTypes.func.isRequired,
-    title: React.PropTypes.string.isRequired
+    title: React.PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -27,12 +22,8 @@ class LoggleButton extends React.Component {
     color: colors.green300,
     defaultColor: colors.grey200,
     icon: 'directions_run',
-    title: 'Goal'
+    title: 'Goal',
   };
-
-  getChildContext() {
-    return { muiTheme: getMuiTheme({ userAgent: false }) };
-  }
 
   render() {
     const { color, complete, defaultColor, description, icon, onClick, title } = this.props;

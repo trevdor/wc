@@ -3,38 +3,36 @@ import Avatar from 'material-ui/Avatar';
 import FontIcon from 'material-ui/FontIcon';
 import { List, ListItem } from 'material-ui/List';
 import { blue50, blue300, red50, red300 } from 'material-ui/styles/colors';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-
-const getScores = () => {
-  return fetch('https://www.trevdiggy.com/wc/get_scores.php')
-    .then(res => res.json());
+const getScores = (challengeId) => {
+  return fetch('http://wc.farlow.casa/get_scores.php', {
+    method: 'POST',
+    body: JSON.stringify({ 'challenge_id': challengeId }),
+  }).then(res => res.json());
 };
+
+// const getScores = () => {
+//   return fetch('https://www.trevdiggy.com/wc/get_scores.php')
+//     .then(res => res.json());
+// };
 
 class Scoreboard extends React.Component {
 
   state = {
     scores: {
       Marcie: '0',
-      Trevor: '0'
-    }
-  };
-
-  static childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired
+      Trevor: '0',
+    },
   };
 
   componentDidMount() {
     this.getData();
   }
 
-  getChildContext() {
-    return { muiTheme: getMuiTheme({ userAgent: false }) };
+  getData() {
+    getScores().then(scores => this.setState({ scores }));
   }
 
-  getData() {
-    getScores().then(scores => this.setState({scores}));
-  }
   render() {
     return (
       <List>
@@ -50,7 +48,7 @@ class Scoreboard extends React.Component {
               backgroundColor={ red300 }
               size={ 30 }
               style={ { display: 'flex', alignItems: 'center' } }
-            >{ this.state.scores.Marcie }
+            >{ this.state.scores['1'] || 0 }
             </Avatar> }
         />
         <ListItem
@@ -62,7 +60,7 @@ class Scoreboard extends React.Component {
               backgroundColor={ blue300 }
               size={ 30 }
               style={ { display: 'flex', alignItems: 'center' } }
-            >{ this.state.scores.Trevor }
+            >{ this.state.scores['2'] | 0 }
             </Avatar> }
         />
       </List>
