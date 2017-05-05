@@ -11,14 +11,14 @@ import { List } from 'material-ui/List';
 import LoggleButton from './LoggleButton';
 
 const getLogEntries = (userId, challengeId) => {
-  return fetch('http://wc.farlow.casa/get_log_entries.php', {
+  return fetch('https://wc.farlow.casa/get_log_entries.php', {
     method: 'POST',
     body: JSON.stringify({ userId, challengeId }),
   }).then(res => res.json());
 };
 
 const updateLog = ({ userId, challengeId, goalId, date, done }) => {
-  return fetch('http://wc.farlow.casa/update_log.php', {
+  return fetch('https://wc.farlow.casa/update_log.php', {
     method: 'POST',
     body: JSON.stringify({ userId, challengeId, goalId, date, done }),
   }).then(res => res.json());

@@ -9,17 +9,13 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 class ChallengesMenu extends Component {
   static muiName = 'Drawer';
 
-  state = {
-    open: this.props.open
-  };
-
   render() {
     return (
       <Drawer open={ this.props.open }>
         <AppBar
           title="Challenges"
           iconElementLeft={
-            <IconButton>
+            <IconButton onTouchTap={ this.props.toggle }>
               <NavigationClose />
             </IconButton>
           }

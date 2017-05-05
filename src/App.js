@@ -3,12 +3,16 @@ import {
   BrowserRouter as Router,
   Route,
   Redirect,
-  Switch
+  Switch,
 } from 'react-router-dom';
 import { isLoggedIn } from './auth';
 import Home from './components/Home';
 import Login from './components/Login';
 import EditProfile from './components/EditProfile';
+
+// Needed for onTouchTap - http://stackoverflow.com/a/34015469/988941
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 const PrivateRoute = ({ component, ...rest }) => (
   <Route { ...rest } render={ props => (

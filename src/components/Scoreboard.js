@@ -5,7 +5,7 @@ import { List, ListItem } from 'material-ui/List';
 import { blue50, blue300, red50, red300 } from 'material-ui/styles/colors';
 
 const getScores = (challengeId) => {
-  return fetch('http://wc.farlow.casa/get_scores.php', {
+  return fetch('https://wc.farlow.casa/get_scores.php', {
     method: 'POST',
     body: JSON.stringify({ 'challenge_id': challengeId }),
   }).then(res => res.json());

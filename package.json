@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.8.5"
+    "react-scripts": "0.9.5"
   },
   "dependencies": {
     "auth0-lock": "latest",
@@ -12,7 +12,8 @@
     "material-design-icons": "latest",
     "material-ui": "latest",
     "moment": "latest",
-    "react-router-dom": "next",
+    "react-router": "latest",
+    "react-router-dom": "latest",
     "react-tap-event-plugin": "latest",
     "superagent": "latest"
   },

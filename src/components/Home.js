@@ -8,10 +8,6 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MainTheme from '../styles/MainTheme';
 
-// Needed for onTouchTap - http://stackoverflow.com/a/34015469/988941
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
 import Log from './Log';
 import LoginButton from './LoginButton';
 import Scoreboard from './Scoreboard';
@@ -19,7 +15,7 @@ import ChallengesMenu from './ChallengesMenu';
 import UserMenu from './UserMenu';
 
 const getChallenge = (challengeId) => {
-  return fetch('http://wc.farlow.casa/get_challenge.php', {
+  return fetch('https://wc.farlow.casa/get_challenge.php', {
     method: 'POST',
     body: JSON.stringify({ challengeId }),
   }).then(res => res.json());
@@ -43,7 +39,7 @@ class Home extends React.Component {
   }
 
   toggleDrawer() {
-    this.setState({ challengesMenuOpen: !this.state.challengesMenuOpen });
+    this.setState(prevState => ({ challengesMenuOpen: !prevState.challengesMenuOpen }));
   }
 
   render() {
@@ -63,7 +59,7 @@ class Home extends React.Component {
             iconElementRight={ loggedIn ? <UserMenu /> : <LoginButton /> }
             onLeftIconButtonTouchTap={ this.toggleDrawer.bind(this) }
           />
-          <ChallengesMenu open={ this.state.challengesMenuOpen } />
+          <ChallengesMenu toggle={ this.toggleDrawer.bind(this) } open={ this.state.challengesMenuOpen } />
           <Tabs>
             <Tab label="Log">
               <Log
@@ -86,8 +82,8 @@ class Home extends React.Component {
 
 Home.defaultProps = {
   challengeId: "1",
-  challengeStartDate: moment('2017-01-01'),
-  challengeEndDate: moment('2017-01-31'),
+  challengeStartDate: moment('2017-05-01'),
+  challengeEndDate: moment('2017-05-31'),
 };
 
 export default connectProfile(Home);
