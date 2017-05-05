@@ -1,14 +1,18 @@
 language: node_js
 node_js:
-  - "stable"
+- stable
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
 notifications:
   email:
     recipients:
-      - travis@trevdor.com
+    - travis@trevdor.com
+env:
+  global:
+  - secure: DjdOrATHuUd7WxDNxsl447T9Pzf/rBN14gTjI1HDd4k/lJFVFTnjtrTPF2wUtpSSc1NlTjWRskCBxVF40qoQqD7IL/USZgXvzeTJjhJHA/qzV6gVf4QW6+MDPcvwe+Fb10w65zq6ToeJ4kj+6LkAU7ArxUwI4plUenO8Mk4OLHc=
+  - secure: F/YoxftnLx9/zmbFp2DARjv+2EI+/IyEL7v4v6gEFDzvmACDdZ2yLmBO4v5Yu6H0PXzYKmIUCGQTcLNm/sokEAy3+TvEXw4+skYbVHK92ujeV80UPBJVo4PdK4obvEKSyR91Glt7yx62W7di+fGwPTjWRlgpzlI6hRnnEjv6Sjs=
