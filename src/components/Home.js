@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connectProfile } from '../auth';
 
 import AppBar from 'material-ui/AppBar';
@@ -24,8 +25,8 @@ const getChallenge = (challengeId) => {
 class Home extends React.Component {
 
   static propTypes = {
-    challengeStartDate: React.PropTypes.object.isRequired,
-    challengeEndDate: React.PropTypes.object.isRequired,
+    challengeStartDate: PropTypes.object.isRequired,
+    challengeEndDate: PropTypes.object.isRequired,
     ...connectProfile.PropTypes,
   };
 
@@ -47,7 +48,7 @@ class Home extends React.Component {
     const { profile } = this.props;
 
     if (profile) {
-      console.warn(`profile:${JSON.stringify(profile)}`);
+      //console.warn(`profile:${JSON.stringify(profile)}`);
       loggedIn = true;
     }
 
@@ -59,7 +60,11 @@ class Home extends React.Component {
             iconElementRight={ loggedIn ? <UserMenu /> : <LoginButton /> }
             onLeftIconButtonTouchTap={ this.toggleDrawer.bind(this) }
           />
-          <ChallengesMenu toggle={ this.toggleDrawer.bind(this) } open={ this.state.challengesMenuOpen } />
+          <ChallengesMenu
+            open={ this.state.challengesMenuOpen }
+            toggle={ this.toggleDrawer.bind(this) }
+            userId={ this.props.userId }
+          />
           <Tabs>
             <Tab label="Log">
               <Log
@@ -67,7 +72,7 @@ class Home extends React.Component {
                 challengeStartDate={ this.props.challengeStartDate }
                 challengeEndDate={ this.props.challengeEndDate }
                 goals={ this.state.challenge.goals }
-                userId="2"
+                userId={ this.props.userId }
               />
             </Tab>
             <Tab label="Score">
@@ -84,6 +89,7 @@ Home.defaultProps = {
   challengeId: "1",
   challengeStartDate: moment('2017-05-01'),
   challengeEndDate: moment('2017-05-31'),
+  userId: "2",
 };
 
 export default connectProfile(Home);

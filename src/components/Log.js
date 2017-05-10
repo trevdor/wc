@@ -1,6 +1,7 @@
 import Immutable from 'immutable';
 import moment from 'moment';
 import React from 'react';
+import PropTypes from 'prop-types';
 // import superagent from 'superagent';
 
 import DatePicker from 'material-ui/DatePicker';
@@ -31,11 +32,11 @@ class Log extends React.Component {
   };
 
   static propTypes = {
-    challengeId: React.PropTypes.string.isRequired,
-    challengeStartDate: React.PropTypes.object.isRequired,
-    challengeEndDate: React.PropTypes.object.isRequired,
-    goals: React.PropTypes.array.isRequired,
-    userId: React.PropTypes.string.isRequired,
+    challengeId: PropTypes.string.isRequired,
+    challengeStartDate: PropTypes.object.isRequired,
+    challengeEndDate: PropTypes.object.isRequired,
+    goals: PropTypes.array.isRequired,
+    userId: PropTypes.string.isRequired,
   };
 
   componentWillMount() {
