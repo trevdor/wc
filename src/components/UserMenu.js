@@ -13,13 +13,13 @@ export default class UserMenu extends Component {
     return (
       <IconMenu
         iconButtonElement={
-          <IconButton><MoreVertIcon /></IconButton>
+          <IconButton><MoreVertIcon color="#ffffff" /></IconButton>
         }
-        targetOrigin={{horizontal: 'right', vertical: 'top'}}
-        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+        targetOrigin={ {horizontal: 'right', vertical: 'top'} }
+        anchorOrigin={ {horizontal: 'right', vertical: 'top'} }
       >
         <Link to="/profile/edit"><MenuItem primaryText="Profile" /></Link>
-        <MenuItem primaryText="Sign out" onTouchTap={() => { window.location.assign("https://casa.auth0.com/v2/logout") }} />
+        <MenuItem primaryText="Sign out" onTouchTap={ () => { window.location.assign("https://casa.auth0.com/v2/logout"); } } />
       </IconMenu>
     );
   }
