@@ -1,5 +1,5 @@
-import React from 'react';
-import { connectProfile } from '../auth';
+/*import React from 'react';
+import { connectProfile } from './auth';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MainTheme from '../styles/MainTheme';
@@ -80,4 +80,4 @@ class EditProfile extends React.Component {
   }
 }
 
-export default connectProfile(EditProfile);
+export default connectProfile(EditProfile);*/

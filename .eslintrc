@@ -11,7 +11,6 @@
   },
 
   "rules": {
-    "comma-dangle": [1, "always-multiline"],
     "curly": [1, "all"],
     "dot-notation": 2,
     "eqeqeq": [2, "smart"],
@@ -26,7 +25,6 @@
     "no-unused-expressions": 0,
     "no-unused-vars": 1,
     "no-use-before-define": [2, "nofunc"],
-    "react/jsx-curly-spacing": [1, "always"],
     "react/jsx-quotes": 0,
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
@@ -36,7 +34,5 @@
     "wrap-iife": [2, "outside"]
   },
 
-  "plugins": [
-    "react"
-  ]
+  "plugins": ["react"]
 }

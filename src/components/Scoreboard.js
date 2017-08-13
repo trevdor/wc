@@ -1,36 +1,53 @@
-import React from 'react';
-import Avatar from 'material-ui/Avatar';
-import FontIcon from 'material-ui/FontIcon';
-import { List, ListItem } from 'material-ui/List';
-import { blue50, blue300, red50, red300 } from 'material-ui/styles/colors';
+import Immutable from "immutable";
+import React from "react";
+import Avatar from "material-ui/Avatar";
+import Icon from "material-ui/FontIcon";
+import PropTypes from "prop-types";
+import { List, ListItem } from "material-ui/List";
+import { blue50, blue300, red50, red300 } from "material-ui/styles/colors";
 
-const getScores = (challengeId) => {
-  return fetch('https://wc.farlow.casa/get_scores.php', {
-    method: 'POST',
-    body: JSON.stringify({ 'challenge_id': challengeId }),
-  }).then(res => res.json());
+const getScores = challengeId => {
+  return fetch(
+    `https://wc.farlow.casa/loo/challenge/${challengeId}/score`
+  ).then(res => res.json());
 };
 
-// const getScores = () => {
-//   return fetch('https://www.trevdiggy.com/wc/get_scores.php')
-//     .then(res => res.json());
-// };
-
 class Scoreboard extends React.Component {
+  static propTypes = {
+    challengeId: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired
+  };
 
   state = {
-    scores: {
-      Marcie: '0',
-      Trevor: '0',
-    },
+    scores: Immutable.fromJS({
+      0: {
+        score: 0
+      },
+      1: {
+        score: 0
+      }
+    })
   };
 
   componentDidMount() {
     this.getData();
   }
 
+  componentDidUpdate() {
+    console.log(this.state.scores.toJS());
+  }
+
   getData() {
-    getScores().then(scores => this.setState({ scores }));
+    getScores(this.props.challengeId).then(scores => {
+      const normalizedScores = Immutable.Map();
+      scores.forEach(score => {
+        normalizedScores.setIn(
+          [this.props.challengeId, "score", this.props.userId],
+          score.score
+        );
+      });
+      this.setState({ scores: Immutable.fromJS(scores) });
+    });
   }
 
   render() {
@@ -38,30 +55,41 @@ class Scoreboard extends React.Component {
       <List>
         <ListItem
           primaryText="Marcie"
-          leftAvatar={ <Avatar
-                      icon={ <FontIcon className="material-icons">account_box</FontIcon> }
-                      backgroundColor={ red300 } />
+          leftAvatar={
+            <Avatar
+              icon={<Icon className="material-icons">account_box</Icon>}
+              backgroundColor={red300}
+            />
           }
           rightIcon={
             <Avatar
-              color={ red50 }
-              backgroundColor={ red300 }
-              size={ 30 }
-              style={ { display: 'flex', alignItems: 'center' } }
-            >{ this.state.scores['1'] || 0 }
-            </Avatar> }
+              color={red50}
+              backgroundColor={red300}
+              size={30}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              {this.state.scores.getIn([0, "score"]) || 0}
+            </Avatar>
+          }
         />
         <ListItem
           primaryText="Trevor"
-          leftAvatar={ <Avatar icon={ <FontIcon className="material-icons">account_box</FontIcon> } backgroundColor={ blue300 } /> }
+          leftAvatar={
+            <Avatar
+              icon={<Icon className="material-icons">account_box</Icon>}
+              backgroundColor={blue300}
+            />
+          }
           rightIcon={
             <Avatar
-              color={ blue50 }
-              backgroundColor={ blue300 }
-              size={ 30 }
-              style={ { display: 'flex', alignItems: 'center' } }
-            >{ this.state.scores['2'] | 0 }
-            </Avatar> }
+              color={blue50}
+              backgroundColor={blue300}
+              size={30}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              {this.state.scores.getIn([1, "score"]) || 0}
+            </Avatar>
+          }
         />
       </List>
     );

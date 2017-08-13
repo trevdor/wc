@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { login } from '../auth';
-import FlatButton from 'material-ui/FlatButton';
+import { login } from './Auth';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class LoginButton extends Component {
-  static muiName = 'FlatButton';
+  static muiName = 'RaisedButton';
 
   render() {
     return (
-      <FlatButton
+      <RaisedButton
         { ...this.props }
         onClick={ login }
-        label="Login" />
+        label="Log In" 
+        primary={ true }
+      />
     );
   }
 }

@@ -1,6 +1,7 @@
-import decode from 'jwt-decode';
+/*import decode from 'jwt-decode';
 import {EventEmitter} from 'events';
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {browserHistory} from 'react-router';
 import Auth0Lock from 'auth0-lock';
 
@@ -213,4 +214,4 @@ function getTokenExpirationDate(encodedToken) {
 function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
   return expirationDate < new Date();
-}
+}*/

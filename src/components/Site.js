@@ -1,12 +1,13 @@
+/*import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router';
-import { connectProfile, logout } from '../auth';
+import { connectProfile, logout } from './auth';
 import './Site.css';
 
 class Site extends React.Component {
   static propTypes = {
     ...connectProfile.PropTypes,
-    children: React.PropTypes.any
+    children: PropTypes.any
   };
 
   render() {
@@ -37,4 +38,4 @@ class Site extends React.Component {
   }
 }
 
-export default connectProfile(Site);
+export default connectProfile(Site);*/

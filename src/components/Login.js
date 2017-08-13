@@ -1,23 +1,52 @@
-import React, { Component } from 'react';
-import { login } from '../auth';
+import React from 'react';
+import Auth0Lock from 'auth0-lock';
+import { withRouter } from 'react-router-dom';
+import { isLoggedIn } from './Auth';
 
-class Login extends Component {
-  componentWillMount() {
-    this.login = login();
+import { 
+  ACCESS_TOKEN_KEY,
+  ID_TOKEN_KEY 
+} from '../Constants';
+
+class Login extends React.Component {
+  constructor(props) {
+    super();
+    this.lock = new Auth0Lock(
+      process.env.REACT_APP_AUTH0_CLIENT_ID,
+      process.env.REACT_APP_AUTH0_DOMAIN,
+      {
+        auth: {
+          // redirectUrl: (process.env.NODE_ENV !== 'production') ? 'http://localhost:3000' : 'https://wc.farlow.casa/',
+          // responseType: 'token',
+          redirect: false
+        }
+      }
+    );
+    this.lock.on('authenticated', (authResult) => {
+      console.log('tryna setItems', authResult);
+      localStorage.setItem(ACCESS_TOKEN_KEY, authResult.accessToken);
+      localStorage.setItem(ID_TOKEN_KEY, authResult.idToken);
+    });
+
+    this.lock.on('authorization_error', (error) => {
+      this.lock.show({
+        flashMessage: {
+          type: 'error',
+          text: error.error_description
+        }
+      });
+    });
   }
 
-  componentWillUnmount() {
-    this.login.hide();
-    this.login = null;
+  componentDidMount() {
+    if (!isLoggedIn()) {
+      this.lock.show();
+    }
   }
 
   render() {
-    return (
-      <div className="Login">
-        <a className="Login-loginButton" onClick={ () => login() }>Log In with Auth0</a>
-      </div>
-    );
+    return null;
   }
 }
 
-export default Login;
+export default withRouter(Login);

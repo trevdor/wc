@@ -9,10 +9,8 @@ import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 const getChallenges = (userId) => {
-  return fetch('https://wc.farlow.casa/get_challenges.php', {
-    method: 'POST',
-    body: JSON.stringify({ userId }),
-  }).then(res => res.json());
+  return fetch(`https://wc.farlow.casa/loo/user/${userId}/challenges`)
+           .then(res => res.json());
 };
 
 class ChallengesMenu extends Component {
@@ -20,14 +18,14 @@ class ChallengesMenu extends Component {
 
   static propTypes = {
     toggle: PropTypes.func.isRequired,
-    userId: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
   };
 
   state = {
     challenges: [],
   };
 
-  componentWillMount() {
+  componentDidMount() {
     getChallenges(this.props.userId).then(challenges => this.setState({ challenges }));
   }
 
