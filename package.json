@@ -5,7 +5,7 @@
   "devDependencies": {
     "prettier": "^1.5.3",
     "prop-types": "15.5.10",
-    "react-scripts": "1.0.13"
+    "react-scripts": "3.4.2"
   },
   "dependencies": {
     "auth0-js": "^8.9.1",
